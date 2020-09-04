@@ -1,0 +1,124 @@
+module Test where
+
+import Daml.Script
+
+import DA.Optional.Total
+
+import Main
+
+-- assumes the existence of the party 'owner'
+-- `daml ledger allocate-parties --host "$HOST" --port "$PORT" owner`
+run : Int -> Script ()
+run loops = do
+  owner <- fromSome $ partyFromText "owner"
+  fib <- submit owner do
+    createCmd InefficientFibonacci with
+      owner = owner
+  submit owner do
+    exerciseCmd fib InefficientFibonacciCompute with
+      n = loops
+  pure ()
+
+run1 = run 1
+run2 = run 2
+run3 = run 3
+run4 = run 4
+run5 = run 5
+run6 = run 6
+run7 = run 7
+run8 = run 8
+run9 = run 9
+run10 = run 10
+run11 = run 11
+run12 = run 12
+run13 = run 13
+run14 = run 14
+run15 = run 15
+run16 = run 16
+run17 = run 17
+run18 = run 18
+run19 = run 19
+run20 = run 20
+run21 = run 21
+run22 = run 22
+run23 = run 23
+run24 = run 24
+run25 = run 25
+run26 = run 26
+run27 = run 27
+run28 = run 28
+run29 = run 29
+run30 = run 30 -- at this point the slowdown should become noticeable
+run31 = run 31
+run32 = run 32
+run33 = run 33
+run34 = run 34
+run35 = run 35
+run36 = run 36
+run37 = run 37
+run38 = run 38
+run39 = run 39
+run40 = run 40
+run41 = run 41
+run42 = run 42
+run43 = run 43
+run44 = run 44
+run45 = run 45
+run46 = run 46
+run47 = run 47
+run48 = run 48
+run49 = run 49
+run50 = run 50
+run51 = run 51
+run52 = run 52
+run53 = run 53
+run54 = run 54
+run55 = run 55
+run56 = run 56
+run57 = run 57
+run58 = run 58
+run59 = run 59
+run60 = run 60
+run61 = run 61
+run62 = run 62
+run63 = run 63
+run64 = run 64
+run65 = run 65
+run66 = run 66
+run67 = run 67
+run68 = run 68
+run69 = run 69
+run70 = run 70
+run71 = run 71
+run72 = run 72
+run73 = run 73
+run74 = run 74
+run75 = run 75
+run76 = run 76
+run77 = run 77
+run78 = run 78
+run79 = run 79
+run80 = run 80
+run81 = run 81
+run82 = run 82
+run83 = run 83
+run84 = run 84
+run85 = run 85
+run86 = run 86
+run87 = run 87
+run88 = run 88
+run89 = run 89
+run90 = run 90
+run91 = run 91
+run92 = run 92
+run93 = run 93
+run94 = run 94
+run95 = run 95
+run96 = run 96
+run97 = run 97
+run98 = run 98
+run99 = run 99
+run100 = run 100
+run200 = run 200
+run500 = run 500
+run1000 = run 1000

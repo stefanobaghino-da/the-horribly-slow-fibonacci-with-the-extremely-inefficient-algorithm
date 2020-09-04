@@ -1,10 +1,8 @@
 sdk-version: 1.4.0
 name: the-horribly-slow-fibonacci-with-the-extremely-inefficient-algorithm
 source: daml
-init-script: Setup:initialize
 parties:
-  - Alice
-  - Bob
+  - owner
 version: 0.0.1
 dependencies:
   - daml-prim

@@ -1,36 +1,38 @@
 module Main where
 
-type AssetId = ContractId Asset
+inefficientFibonacci n =
+  case n of
+    0 -> 0
+    1 -> 1
+    m -> inefficientFibonacci (m - 2) + inefficientFibonacci (m - 1)
 
-template Asset
+template Result
   with
-    issuer : Party
-    owner  : Party
-    name   : Text
+    owner: Party
+    result: Int
   where
-    ensure name /= ""
-    signatory issuer
+    signatory owner
+
+template InefficientFibonacci
+  with
+    owner: Party
+  where
+    signatory owner
     controller owner can
-      Give : AssetId
+      InefficientFibonacciCompute: ContractId Result
         with
-          newOwner : Party
-        do
-          create this with
-            owner = newOwner
+          n: Int
+        do create Result with owner = owner; result = inefficientFibonacci n
 
-setup : Scenario AssetId
-setup = scenario do
-  alice <- getParty "Alice"
-  bob <- getParty "Bob"
-
-  aliceTV <- submit alice do
-    create Asset with
-      issuer = alice
-      owner = alice
-      name = "TV"
-
-  bobTV <- submit alice do
-    exercise aliceTV Give with newOwner = bob
-
-  submit bob do
-    exercise bobTV Give with newOwner = alice
+eventuallyTerminates : Scenario ()
+eventuallyTerminates = scenario do
+  owner <- getParty "owner"
+  fib <- submit owner do
+    create InefficientFibonacci with
+      owner = owner
+  let loops = 31
+  resultId <- submit owner do
+    exercise fib InefficientFibonacciCompute with
+      n = loops
+  result <- submit owner do fetch resultId
+  return ()
